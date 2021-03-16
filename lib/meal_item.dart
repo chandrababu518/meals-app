@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:meals_app/screens/meal_details.dart';
 
 class MealItem extends StatelessWidget {
   final String imgUrl;
   final String title;
+
   MealItem({@required this.title, @required this.imgUrl});
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return InkWell(
+      onTap: ()=>callDetails(context),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Column(
@@ -27,8 +31,8 @@ class MealItem extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                    bottom: 10,
-                    right: 5,
+                    bottom: 0,
+                    right: 0,
                     child: Container(
                       width: 200,
                       height: 40,
@@ -45,10 +49,31 @@ class MealItem extends StatelessWidget {
                       ),
                     )),
               ],
+            ),
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: [Icon(CupertinoIcons.time), Text("available")],
+                  ),
+                  Row(
+                    children: [Icon(Icons.work), Text("delivarable")],
+                  ),
+                  Row(
+                    children: [Icon(CupertinoIcons.cart), Text("cart")],
+                  ),
+                ],
+              ),
             )
           ],
         ),
       ),
     );
+  }
+
+  callDetails(BuildContext context) {
+    Navigator.of(context).pushNamed(MealDetails.routeName,arguments: title);
   }
 }

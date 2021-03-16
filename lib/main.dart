@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:meals_app/categories_screen.dart';
 import 'package:meals_app/category_item.dart';
 import 'package:meals_app/category_meals_screen.dart';
+import 'package:meals_app/screens/bottom_tab_screen.dart';
+import 'package:meals_app/screens/default_tab.dart';
+import 'package:meals_app/screens/filter_screen.dart';
+import 'package:meals_app/screens/home_screen.dart';
+import 'package:meals_app/screens/meal_details.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,9 +19,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.orange, fontFamily: 'Raleway'),
-      home: CategoriesScreen(),
+      home: DefaultTabScreen(),
       routes: {
         CategoryItem.routeName: (ctx) => CategoryMealsScreen(),
+        MealDetails.routeName: (ctx) => MealDetails(),
+        HomeScreen.routeName: (ctx) => HomeScreen(),
+        CategoriesScreen.routeName: (ctx) => CategoriesScreen(),
+        DefaultTabScreen.routeName: (ctx) => DefaultTabScreen(),
+        FilterScreen.routeName: (ctx) => FilterScreen(),
+        BottomTabScreen.routeName: (ctx) => BottomTabScreen(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == "categories")
+          return MaterialPageRoute(builder: (ctx) => CategoriesScreen());
+      },
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(builder: (ctx) => DefaultTabScreen());
       },
     );
   }
